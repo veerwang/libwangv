@@ -20,9 +20,22 @@
  * =====================================================================================
  */
 
+#include <string>
 #include <pimpltemplate.h>
+#include <functionstemplate.h>
 
-class Base
+
+class InterfacePublic
+{
+	public:
+		InterfacePublic () : m_id(0),m_name("wangwei")
+		{;}
+
+		WangV::Value<int> 	   	m_id;
+		WangV::Value<std::string> 	m_name;
+};
+
+class Base : public InterfacePublic
 {
 	public:
 		Base ();                                       /* constructor */

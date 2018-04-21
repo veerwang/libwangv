@@ -122,6 +122,10 @@ public:
 					di->version();
 
 					Base* base = new Base;
+					base->m_id.set(120);
+					base->m_name.set("kevin");
+					std::cout<<base->m_id.get()<<std::endl;
+					std::cout<<base->m_name.get()<<std::endl;
 					WangV::deletep(base);
 
 					WangV::ProcessCommunicationServer<DoProcess> pc;

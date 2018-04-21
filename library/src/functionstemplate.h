@@ -83,6 +83,27 @@ inline void deletearray(T *p)
 	}
 }
 
+/* 
+ * ===  CLASS ======================================================================
+ *         Name:  Value 
+ *  Description:  用于全局变量的设置与读取使用 
+ * =====================================================================================
+ */
+template<typename T>
+class Value
+{
+	public:
+		Value(){;}
+		Value(const T& v){ _value = v; }
 
+		inline void set(const T value) 
+		{ 
+			_value = value;
+		}
+		inline T get() const
+		{ return _value; }
+	private:
+		T _value;
+};
 }
 #endif /* !defined(INCLUDED_FUNCTIONS_HPP) */
