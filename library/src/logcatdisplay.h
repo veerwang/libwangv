@@ -32,10 +32,18 @@ namespace WangV
 class DefaultDisplayPolicy 
 {
 public:
-	void displaycore()
+	char* displaycore(const char *file, int level,const char * func, int line, const char *msg)
 	{
-		;
+		const char *c = "IWEDX";
+		char timechar[64];
+		const char *datetime_format = "%Y-%m-%d %H:%M:%S";
+		time_t meow = time( NULL );
+		strftime( timechar, 64, datetime_format, localtime(&meow) );
+		sprintf(m_inside_msg,"====> [%s]%s:%s:%d %c  %s",timechar,file,func,line,c[level],msg);
+		return m_inside_msg;
 	}
+protected:
+	char m_inside_msg[1024];
 };
 
 template <typename Display = DefaultDisplayPolicy >
@@ -99,14 +107,8 @@ private:
 	{
 		if ( level < log_level || level < 0 ) return;
 
-		const char *c = "IWEDX";
-		const char *datetime_format = "%Y-%m-%d %H:%M:%S";
-		time_t meow = time( NULL );
-
-		strftime( m_timechar, 64, datetime_format, localtime(&meow) );
-		fprintf(log_device_fp, "%s%s[%d][%s(%s):%d] %c, %s%s\n",log_set_color(level, 0) , m_timechar, (int)getpid(), file, func, line, c[level], msg ,log_set_color(level, 1));
-
-		this->displaycore();
+		//fprintf(log_device_fp, "%s%s[%d][%s(%s):%d] %c, %s%s\n",log_set_color(level, 0) , m_timechar, (int)getpid(), file, func, line, c[level], msg ,log_set_color(level, 1));
+		fprintf(log_device_fp, "%s[%d] %s%s\n",log_set_color(level, 0), (int)getpid(), this->displaycore(file, level, func, line,msg), log_set_color(level, 1));
 	}
 
 
@@ -177,7 +179,7 @@ const char* LogcatDisplay<Display>::FG_WHITE		= 	"\x1B[0;m"	;   /* white */
 
 
 template < typename Display>
-const char* LogcatDisplay<Display>::FG_RED    	= 	"\033[0;31m"	;   /* 0 -> normal ; 31 -> red */
+const char* LogcatDisplay<Display>::FG_RED    		= 	"\033[0;31m"	;   /* 0 -> normal ; 31 -> red */
 
 
 template < typename Display>
@@ -185,7 +187,7 @@ const char* LogcatDisplay<Display>::FG_RED_BOLD  	=	"\033[1;31m" 	;   /* 1 -> bo
 
 
 template < typename Display>
-const char* LogcatDisplay<Display>::FG_GREEN   	=	"\033[0;32m"  	;   /* 4 -> underline ; 32 -> green */
+const char* LogcatDisplay<Display>::FG_GREEN   		=	"\033[0;32m"  	;   /* 4 -> underline ; 32 -> green */
 
 
 template < typename Display>
@@ -193,7 +195,7 @@ const char* LogcatDisplay<Display>::FG_GREEN_BOLD	=       "\033[1;32m"	;
 
 
 template < typename Display>
-const char* LogcatDisplay<Display>::FG_YELLOW 	=       "\033[0;33m"  	;   /* 0 -> normal ; 33 -> yellow */
+const char* LogcatDisplay<Display>::FG_YELLOW 		=       "\033[0;33m"  	;   /* 0 -> normal ; 33 -> yellow */
 
 
 template < typename Display>
@@ -209,7 +211,7 @@ const char* LogcatDisplay<Display>::FG_BLUE_BOLD    	=	"\033[1;34m"	;
 
 
 template < typename Display>
-const char* LogcatDisplay<Display>::FG_CYAN   	=	"\033[0;36m"    ;   /* 0 -> normal ; 36 -> cyan */
+const char* LogcatDisplay<Display>::FG_CYAN   		=	"\033[0;36m"    ;   /* 0 -> normal ; 36 -> cyan */
 
 
 template < typename Display>
