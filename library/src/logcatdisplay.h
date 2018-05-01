@@ -34,12 +34,8 @@ class DefaultDisplayPolicy
 public:
 	char* displaycore(const char *file, int level,const char * func, int line, const char *msg)
 	{
-		const char *c = "IWEDX";
-		char timechar[64];
-		const char *datetime_format = "%Y-%m-%d %H:%M:%S";
-		time_t meow = time( NULL );
-		strftime( timechar, 64, datetime_format, localtime(&meow) );
-		sprintf(m_inside_msg,"====> [%s]%s:%s:%d %c  %s",timechar,file,func,line,c[level],msg);
+		//sprintf(m_inside_msg,"[library info]===>%s",msg);
+		sprintf(m_inside_msg,"");
 		return m_inside_msg;
 	}
 protected:
@@ -108,7 +104,8 @@ private:
 		if ( level < log_level || level < 0 ) return;
 
 		//fprintf(log_device_fp, "%s%s[%d][%s(%s):%d] %c, %s%s\n",log_set_color(level, 0) , m_timechar, (int)getpid(), file, func, line, c[level], msg ,log_set_color(level, 1));
-		fprintf(log_device_fp, "%s[%d] %s%s\n",log_set_color(level, 0), (int)getpid(), this->displaycore(file, level, func, line,msg), log_set_color(level, 1));
+
+		fprintf(log_device_fp, "%s%s %s\n",log_set_color(level, 0), this->displaycore(file, level, func, line,msg), log_set_color(level, 1));
 	}
 
 

@@ -32,12 +32,32 @@
 
 #include "base.h" 
 
+
+class ModifyDisplayPolicy 
+{
+public:
+	char* displaycore(const char *file, int level,const char * func, int line, const char *msg)
+	{
+		const char *c = "IWEDX";
+		char timechar[64];
+		const char *datetime_format = "%Y-%m-%d %H:%M:%S";
+		time_t meow = time( NULL );
+		strftime( timechar, 64, datetime_format, localtime(&meow) );
+		sprintf(m_inside_msg,"[%d]===>[%s]%s:%s:%d %c  %s",(int)getpid(),timechar,file,func,line,c[level],msg);
+		return m_inside_msg;
+	}
+protected:
+	char m_inside_msg[1024];
+};
+
+typedef WangV::LogcatDisplay<ModifyDisplayPolicy> MyLog;
+
 class deviceinput : public WangV::Singleton<deviceinput>
 {
 	public:
 		~deviceinput()
 		{
-			WangV::Logcat *logcat = WangV::Logcat::Instance();
+			MyLog *logcat = MyLog::Instance();
 			logcat->log_module_write((WangV::Logcat::LOG_INFO),__FILE__,__FUNCTION__,__LINE__,"deviceinput %s","destroy");
 		}
 
@@ -63,7 +83,7 @@ class MyPolicy
 	public:
 		void Run()
 		{
-			WangV::Logcat *logcat = WangV::Logcat::Instance();
+			MyLog *logcat = MyLog::Instance();
 			logcat->log_module_write((WangV::Logcat::LOG_INFO),__FILE__,__FUNCTION__,__LINE__,"pthread %s","kevin");
 		}
 };
@@ -98,12 +118,12 @@ class BaseShellCmd
 public:
 	void CodeProcess(int opt)
 	{
-		WangV::Logcat *logcat = WangV::Logcat::Instance();
+		MyLog *logcat = MyLog::Instance();
 		switch ( opt )
 		{
 			case 's':
 				{
-					WangV::Logcat *logcat = WangV::Logcat::Instance();
+					MyLog *logcat = MyLog::Instance();
 					logcat->log_module_init(NULL);
 					logcat->log_module_level(WangV::Logcat::LOG_ERROR);
 					logcat->log_module_write((WangV::Logcat::LOG_INFO),__FILE__,__FUNCTION__,__LINE__,"info %s","kevin");
