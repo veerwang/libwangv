@@ -37,6 +37,8 @@ int unlink_file(const char* file);
 void encrypt_file(const char* src,const char* des);
 void decrypt_file(const char* src,const char* des);
 
+/* 将一个IP地址的４个段，转换为４个字符串，注意这种声明方式 */
+void get_ip_segment(const char* ip,char (*segment)[4]);
 }
 
 #endif /* !defined(INCLUDED_WANGVLIB_H) */

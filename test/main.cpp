@@ -202,5 +202,11 @@ main ( int argc, char *argv[] )
 	WangV::ShellCommand<BaseShellCmd,BasePara> shellcmd;				// 注意这种方式可以推广
 	shellcmd.Analyze(argc,argv,"smh?");						// 注意这个地方容易被忽略
 
+	char ips[4][4] = {0};
+	WangV::get_ip_segment("192.268.1.2",ips);					// 注意，这个是一个指向４个字符的二维数组
+	for (int i=0;i<4;i++)
+	{
+		printf("IP %d segment: %s\n",i+1,ips[i]);
+	}
 	return EXIT_SUCCESS;
 }				/* ----------  end of function main  ---------- */
