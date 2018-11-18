@@ -6,7 +6,7 @@
  *
  *       Filename:  main.h
  *
- *    Description:  
+ *    Description:  模块的接口文件，目标是兼容C语言 
  *
  *        Version:  1.0
  *        Created:  2014年12月02日 10时18分27秒
