@@ -187,14 +187,6 @@ public:
 	}
 };
 
-void test_fun(int (*gp)[3])
-{
-	printf ( "%d %d %d\n",gp[0][0],gp[0][1],gp[0][2] );
-	gp[0][0] += 1; 
-	gp[0][1] += 1; 
-	gp[0][2] += 1; 
-}
-
 /* 
  * ===  FUNCTION  ======================================================================
  *         Name:  main
@@ -204,11 +196,6 @@ void test_fun(int (*gp)[3])
 	int
 main ( int argc, char *argv[] )
 {
-	int gp[2][3] = { {0,1,2},{3,4,5} };
-	test_fun(gp);
-
-	printf ( "%d %d %d\n",gp[0][0],gp[0][1],gp[0][2] );
-
 	std::cout<<"Programe Version: "<<WangV::NumberToString(1.0)<<std::endl;		// 注意这个函数
 	std::cout<<WangV::get_version()<<std::endl;
 
